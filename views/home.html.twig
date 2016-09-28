@@ -3,18 +3,19 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
     <title>Library</title>
 </head>
 <body>
     <div class="container">
-        <h1> Books Catalogue</h1>
+        <h1>Library Catalogue</h1>
+        <a href="/add_book"><button class="btn btn-success">Add a Book</button></a>
         {% if books is not empty %}
             {% for book in books %}
                 <a href="book/{{book.getId}}">{{book.getTitle}}</a>,
-                {% for author in {{book.getAuthors}} %}
+                {% for author in book.getAuthors %}
                     {{author.getName}}
                 {% endfor %}
-
             {% endfor %}
         {% endif %}
     </div>
