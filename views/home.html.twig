@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Library</title>
+</head>
+<body>
+    <div class="container">
+        <h1> Books Catalogue</h1>
+        {% if books is not empty %}
+            {% for book in books %}
+                <a href="book/{{book.getId}}">{{book.getTitle}}</a>,
+                {% for author in {{book.getAuthors}} %}
+                    {{author.getName}}
+                {% endfor %}
+
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>
