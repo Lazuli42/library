@@ -3,11 +3,11 @@
     class Book
     {
         private $id;
-        private $name;
+        private $title;
 
-        function __construct($name, $id = null)
+        function __construct($title, $id = null)
         {
-            $this->name = $name;
+            $this->title = $title;
             $this->id = $id;
         }
 
@@ -16,25 +16,35 @@
             return $this->id;
         }
 
-        function getName()
+        function getTitle()
         {
-            return $this->name;
+            return $this->title;
         }
 
         function save()
         {
-
+            $GLOBALS['DB']->exec("INSERT INTO books (title) VALUES ('{$this->getTitle()}');");
+            $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        function getAll()
+        static function getAll()
         {
-
+            $returned_books = $GLOBALS['DB']->query("SELECT * FROM books;");
+            $books = array();
+            foreach ($returned_books as $book)
+            {
+                $title = $book['title'];
+                $id = $book['id'];
+                $new_book = new Book($title, $id);
+                array_push($books, $new_book);
+            }
+            return $books;
         }
 
-        function deleteAll()
+        static function deleteAll()
         {
-
+            $GLOBALS['DB']->exec("DELETE FROM books;");
         }
-        
+
     }
 ?>
