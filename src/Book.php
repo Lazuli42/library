@@ -65,6 +65,51 @@
             return $authors;
         }
 
+        function addCopy($new_copy)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO copies (book_id) VALUES ({$this->getId()});");
+        }
+
+        function getCopies()
+        {
+            $returned_copies = $GLOBALS['DB']->query("SELECT * FROM copies WHERE book_id = {$this->getId()};");
+            $copies = array();
+            foreach($returned_copies as $copy)
+            {
+                $book_id = $copy['book_id'];
+                $checked_in = $copy['checked_in'];
+                $id = $copy['id'];
+                $new_copy = new Copy($book_id, $checked_in, $id);
+                array_push($copies, $new_copy);
+            }
+            return $copies;
+        }
+
+        function getNumberOfCopies()
+        {
+            $returned_copies = $GLOBALS['DB']->query("SELECT * FROM copies WHERE book_id = {$this->getId()};");
+            $number_of_copies = 0;
+            foreach($returned_copies as $copy)
+            {
+                $number_of_copies++;
+            }
+            return $number_of_copies;
+        }
+
+        function getAvailableCopies()
+        {
+            $available_copies = 0;
+            $copies = Copy::getAll();
+            foreach($copies as $copy)
+            {
+                if ($copy->getCheckedIn() == 1 && $copy->getBookId() == $this->getId())
+                {
+                    $available_copies++;
+                }
+            }
+            return $available_copies;
+        }
+
         static function getAll()
         {
             $returned_books = $GLOBALS['DB']->query("SELECT * FROM books;");
