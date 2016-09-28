@@ -52,7 +52,8 @@
             foreach ($returned_copies as $copy)
             {
                 $book_id = $copy['book_id'];
-                $new_copy = new Copy($book_id);
+                $checked_in = $copy['checked_in'];
+                $new_copy = new Copy($book_id, $checked_in);
                 array_push($copies, $new_copy);
             }
             return $copies;

@@ -52,7 +52,7 @@
             //Act
             $test_patron->save();
             //Assert
-            $this->assertEquals($test_patron, Patron::getAll());
+            $this->assertEquals([$test_patron], Patron::getAll());
         }
 
         function testUpdate()
@@ -80,7 +80,7 @@
             //Act
             $test_patron->delete();
             //Assert
-            $this->assertEquals([$test_patron], Patron::getAll());
+            $this->assertEquals([$test_patron2], Patron::getAll());
         }
 
         function testGetAll()

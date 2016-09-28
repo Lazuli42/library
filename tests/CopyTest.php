@@ -76,7 +76,6 @@
             $test_copy2->checkIn_Out();
             $test_copy2->save();
 
-
             // Act
             $result = $test_book->getAvailableCopies();
 

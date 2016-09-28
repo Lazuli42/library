@@ -40,14 +40,14 @@
 
         function delete()
         {
-            $GLOBALS['DB']->exec("UPDATE patrons SET name = '{$new_name}' WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM patrons WHERE id = {$this->getId()};");
         }
 
         static function getAll()
         {
             $returned_patrons = $GLOBALS['DB']->query("SELECT * FROM patrons;");
             $patrons = array();
-            foreach($patrons as $patron)
+            foreach($returned_patrons as $patron)
             {
                 $name = $patron['name'];
                 $id = $patron['id'];
