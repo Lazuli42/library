@@ -55,6 +55,34 @@
             $this->assertEquals([$test_book], Book::getAll());
         }
 
+        function testUpdate()
+        {
+            //Arrange
+            $title = "Gone with the Wind";
+            $test_book = new Book($title);
+            $test_book->save();
+            $new_title = "The Hobbit";
+            //Act
+            $test_book->update($new_title);
+            //Assert
+            $this->assertEquals($new_title, $test_book->getTitle());
+        }
+
+        function testDelete()
+        {
+            //Arrange
+            $title = "Gone with the Wind";
+            $test_book = new Book($title);
+            $test_book->save();
+            $title2 = "The Hobbit";
+            $test_book2 = new Book($title2);
+            $test_book2->save();
+            //Act
+            $test_book->delete();
+            //Assert
+            $this->assertEquals([$test_book2], Book::getAll());
+        }
+
         function testGetAll()
         {
             // Arrange
@@ -87,6 +115,22 @@
 
             // Assert
             $this->assertEquals([], Book::getAll());
+        }
+
+        function testFind()
+        {
+            // Arrange
+            $title = "Gone with the Wind";
+            $test_book = new Book($title);
+            $test_book->save();
+            $title2 = "Return of the King";
+            $test_book2 = new Book($title2);
+            $test_book2->save();
+            $id = $test_book2->getId();
+            // Act
+            $result = Book::find($id);
+            // Assert
+            $this->assertEquals($test_book2, $result);
         }
     }
 ?>

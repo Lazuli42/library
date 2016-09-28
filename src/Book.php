@@ -21,10 +21,26 @@
             return $this->title;
         }
 
+        function setTitle($new_title)
+        {
+            $this->title = (string) $new_title;
+        }
+
         function save()
         {
             $GLOBALS['DB']->exec("INSERT INTO books (title) VALUES ('{$this->getTitle()}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
+        }
+
+        function update($new_title)
+        {
+            $GLOBALS['DB']->exec("UPDATE books SET title = '{$new_title}' WHERE id = {$this->getId()};");
+            $this->setTitle($new_title);
+        }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM books WHERE id = {$this->getId()};");
         }
 
         static function getAll()
@@ -46,5 +62,19 @@
             $GLOBALS['DB']->exec("DELETE FROM books;");
         }
 
+        static function find($search_id)
+        {
+            $found_book = null;
+            $books = Book::getAll();
+            foreach($books as $book)
+            {
+                $id = $book->getId();
+                if ($id == $search_id)
+                {
+                    $found_book = $book;
+                }
+            }
+            return $found_book;
+        }
     }
 ?>
