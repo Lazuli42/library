@@ -8,12 +8,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>{{ book.getName }}</h1>
+        <h1>{{ book.getTitle }}</h1>
         <form action="/edited_book/{{ book.getId }}" method="post">
             <input name="_method" type="hidden" value="patch">
             <div class="form-group">
                 <label for="new_title">Edit title:</label>
-                <input name="new_title" class="form-control">
+                <input name="new_title" class="form-control" placeholder="{{book.getTitle}}">
 
                 <label for="author_id">Add an existing author:</label>
                 <select name="author_id" class="form-control">
